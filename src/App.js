@@ -27,7 +27,6 @@ class App extends Component {
             <Tab label="All" >
               <div>
                   {users.map(user => <Channel channel={user} />)}
-                <Slider name="slider0" defaultValue={0.5} />
               </div>
             </Tab>
             <Tab label="Online" >
