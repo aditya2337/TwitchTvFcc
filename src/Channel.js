@@ -42,14 +42,6 @@ class Channel extends Component {
       return { muiTheme: getMuiTheme(baseTheme) };
   }
 
-  handleExpandChange = (expanded) => {
-    this.setState({expanded: expanded});
-  };
-
-  handleToggle = (event, toggle) => {
-    this.setState({expanded: toggle});
-  };
-
   handleExpand = () => {
     this.setState({expanded: true});
   };
@@ -61,7 +53,7 @@ class Channel extends Component {
   render() {
 
     return (
-      <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange} style={{
+      <Card expanded={this.state.expanded} style={{
       margin: '2em'
     }}>
         <CardHeader
@@ -72,7 +64,6 @@ class Channel extends Component {
       <CardText className = "name">
           <Toggle
             toggled={this.state.expanded}
-            onToggle={this.handleToggle}
             labelPosition="left"
             label={this.state.label}
           />
