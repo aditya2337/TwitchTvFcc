@@ -5,70 +5,36 @@ import Toggle from 'material-ui/Toggle';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import $ from 'jquery';
 
 class Channel extends Component {
 
   constructor(props) {
     super(props);
-    this.getData = this.getData.bind(this);
-    this.state = {
-    expanded: false,
-    channelName: "loading",
-    avatar: "loading",
-    label: 'offline'
-    };
-  }
-
-  componentDidMount() {
-    this.getData()
-  }
-
-  getData() {
-    $.getJSON(`https://wind-bow.gomix.me/twitch-api/channels/${this.props.channel}`, (channel) => {
-        var channelName = channel.display_name;
-        var avatar = channel.logo;
-        var label = channel.status;
-        if (typeof channel.status === 'string') {
-          this.setState({
-          avatar, label, expanded: true});
-        }
-        this.setState({channelName});
-
-    });
   }
 
   getChildContext() {
       return { muiTheme: getMuiTheme(baseTheme) };
   }
 
-  handleExpand = () => {
-    this.setState({expanded: true});
-  };
-
-  handleReduce = () => {
-    this.setState({expanded: false});
-  };
-
   render() {
-
-    return (
-      <Card expanded={this.state.expanded} style={{
-      margin: '2em'
-    }}>
+    var {channelName, avatar, label, url, expanded} = this.props;
+    console.log(this.props.expanded);return (
+      <a href = {url} target = "_blank">
+      <Card style={{margin: '2em'}}>
         <CardHeader
-          title={this.state.channelName}
-          avatar={this.state.avatar}
+          title={channelName}
+          avatar={avatar}
           actAsExpander={true}
         />
       <CardText className = "name">
           <Toggle
-            toggled={this.state.expanded}
+            toggled={expanded}
             labelPosition="left"
-            label={this.state.label}
+            label={label}
           />
         </CardText>
       </Card>
+      </a>
     );
   }
 }
