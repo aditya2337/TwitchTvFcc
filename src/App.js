@@ -48,9 +48,10 @@ class App extends Component {
           var avatar = channel.logo;
           var label = channel.status;
           var url = channel.url;
-          var expanded = false;
-          if (typeof channel.status === "string") {
-            expanded = true;
+          var expanded = true;
+          if (typeof channel.status !== "string") {
+            expanded = false;
+            label = "offline"
           }
           acc.push({channelName, avatar, label, url, expanded});
         }
@@ -69,10 +70,10 @@ class App extends Component {
     // var keys = Object.keys(this.state.channel["ESL_SC2"]);
     var channelList = this.getData();
     var onlineList = channelList.filter( (val) => {
-      return typeof val.label === "string";
+      return val.label !== "offline";
     })
     var offlineList = channelList.filter( (val) => {
-      return typeof val.label !== "string";
+      return val.label === "offline";
     })
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
